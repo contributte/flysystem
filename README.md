@@ -1,6 +1,6 @@
 # Flysystem
 
-Smart integration of Flysystem into Nette Framework.
+Smart integration of [Flysystem](http://flysystem.thephpleague.com/docs/) into Nette Framework.
 
 -----
 
