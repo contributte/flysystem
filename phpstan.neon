@@ -1,3 +1,18 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '~^Call to deprecated method validateConfig\(\) of class Nette\\DI\\CompilerExtension\.$~'
+			path: %currentWorkingDirectory%/src/DI/FlysystemExtension.php
+		- # pre Nette 3.0 compatibility
+			message: "~^Call to function method_exists\\(\\) with \\$this\\(Contributte\\\\Flysystem\\\\DI\\\\FlysystemExtension\\) and 'loadDefinitionsFrom…' will always evaluate to true.$~"
+			path: %currentWorkingDirectory%/src/DI/FlysystemExtension.php
+		- # pre Nette 3.0 compatibility
+			message: '~^Call to deprecated method loadDefinition\(\) of class Nette\\DI\\Compiler\.$~'
+			path: %currentWorkingDirectory%/src/DI/FlysystemExtension.php
+		- # pre Nette 3.0 compatibility
+			message: '~^Static method Nette\\DI\\Compiler::loadDefinition\(\) invoked with 2 parameters, 0 required\.$~'
+			path: %currentWorkingDirectory%/src/DI/FlysystemExtension.php
+
 includes:
 	- temp/phpstan/vendor/phpstan/phpstan-deprecation-rules/rules.neon
 	- temp/phpstan/vendor/phpstan/phpstan-nette/extension.neon

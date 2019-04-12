@@ -18,8 +18,8 @@
   "require": {
     "php": ">= 7.1",
     "league/flysystem": "^1.0.45",
-    "nette/di": "~2.4.12",
-    "nette/utils": "~2.5.2"
+    "nette/di": "~2.4.12|^3.0",
+    "nette/utils": "~2.5.2|^3.0"
   },
   "require-dev": {
     "ninjify/qa": "^0.8.0",
@@ -45,10 +45,10 @@
     ],
     "phpstan-install": [
       "mkdir -p temp/phpstan",
-      "composer require -d temp/phpstan phpstan/phpstan:^0.10",
-      "composer require -d temp/phpstan phpstan/phpstan-deprecation-rules:^0.10",
-      "composer require -d temp/phpstan phpstan/phpstan-nette:^0.10",
-      "composer require -d temp/phpstan phpstan/phpstan-strict-rules:^0.10"
+      "composer require -d temp/phpstan phpstan/phpstan:^0.11",
+      "composer require -d temp/phpstan phpstan/phpstan-deprecation-rules:^0.11",
+      "composer require -d temp/phpstan phpstan/phpstan-nette:^0.11",
+      "composer require -d temp/phpstan phpstan/phpstan-strict-rules:^0.11"
     ],
     "phpstan": [
       "temp/phpstan/vendor/bin/phpstan analyse -l max -c phpstan.neon src"

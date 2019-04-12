@@ -37,25 +37,34 @@ class FlysystemExtension extends CompilerExtension
 
 		// Register filesystems
 		foreach ($config['filesystem'] as $name => $args) {
-			$filesystemName = $this->prefix('filesystem.' . $name);
+			$filesystemName = 'filesystem.' . $name;
 			$adapterName = $filesystemName . '.adapter';
 
-			$args = $this->validateConfig($this->filesystemDefaults, $args, $filesystemName);
+			$args = $this->validateConfig($this->filesystemDefaults, $args, $this->prefix($filesystemName));
 
 			if ($args['adapter'] === null) {
-				throw new InvalidStateException(sprintf('%s must be defined', $adapterName));
+				throw new InvalidStateException(sprintf('%s must be defined', $this->prefix($adapterName)));
 			}
 
 			// Register adapter same way as service (setup, arguments, type etc.)
 			if (!is_string($args['adapter']) || !Strings::startsWith($args['adapter'], '@')) {
-				$processor = $builder->addDefinition($adapterName)
-					->setAutowired(false);
+				if (!method_exists($this, 'loadDefinitionsFromConfig')) {
+					$processor = $builder->addDefinition($this->prefix($adapterName))
+						->setAutowired(false);
 
-				Compiler::loadDefinition($processor, $args['adapter']);
-				$args['adapter'] = '@' . $adapterName;
+					Compiler::loadDefinition($processor, $args['adapter']);
+				} else {
+					// Nette v3 compatibility
+					$this->loadDefinitionsFromConfig(
+						[
+							$adapterName => $args['adapter'],
+						]
+					);
+				}
+				$args['adapter'] = '@' . $this->prefix($adapterName);
 			}
 
-			$filesystemsDefinitions[$name] = $filesystem = $builder->addDefinition($filesystemName)
+			$filesystemsDefinitions[$name] = $filesystem = $builder->addDefinition($this->prefix($filesystemName))
 				->setType(Filesystem::class)
 				->setArguments(
 					[
