@@ -8,7 +8,7 @@
         <properties>
             <property name="rootNamespaces" type="array" value="
 				src=>Contributte\Flysystem,
-				tests/fixtures=>Tests\Fixtures
+				tests=>Tests\Contributte\Flysystem,
 			"/>
         </properties>
     </rule>

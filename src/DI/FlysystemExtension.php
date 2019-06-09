@@ -2,92 +2,117 @@
 
 namespace Contributte\Flysystem\DI;
 
-use Contributte\Flysystem\Exception\Logic\InvalidStateException;
+use Contributte\DI\Helper\ExtensionDefinitionsHelper;
 use League\Flysystem\Filesystem;
 use League\Flysystem\MountManager;
-use Nette\DI\Compiler;
 use Nette\DI\CompilerExtension;
-use Nette\Utils\Strings;
+use Nette\DI\Definitions\Definition;
+use Nette\DI\Definitions\Statement;
+use Nette\Schema\Expect;
+use Nette\Schema\Schema;
+use stdClass;
 
+/**
+ * @property-read stdClass $config
+ */
 class FlysystemExtension extends CompilerExtension
 {
 
-	/** @var mixed[] */
-	private $defaults = [
-		'filesystem' => [],
-		'mountManager' => [
-			'plugins' => [],
-		],
-		'plugins' => [],
-	];
-
-	/** @var mixed[] */
-	private $filesystemDefaults = [
-		'adapter' => null,
-		'config' => null,
-		'plugins' => [],
-		'autowired' => false,
-	];
+	public function getConfigSchema(): Schema
+	{
+		return Expect::structure([
+			'filesystem' => Expect::arrayOf(Expect::structure([
+				'adapter' => Expect::anyOf(Expect::string(), Expect::array(), Expect::type(Statement::class)),
+				'config' => Expect::array(),
+				'plugins' => Expect::arrayOf(
+					Expect::anyOf(Expect::string(), Expect::array(), Expect::type(Statement::class))
+				),
+				'autowired' => Expect::bool(false),
+			])),
+			'mountManager' => Expect::structure([
+				'plugins' => Expect::arrayOf(
+					Expect::anyOf(Expect::string(), Expect::array(), Expect::type(Statement::class))
+				),
+			]),
+			'plugins' => Expect::arrayOf(
+				Expect::anyOf(Expect::string(), Expect::array(), Expect::type(Statement::class))
+			),
+		]);
+	}
 
 	public function loadConfiguration(): void
 	{
-		$config = $this->validateConfig($this->defaults);
 		$builder = $this->getContainerBuilder();
+		$config = $this->config;
+		$definitionHelper = new ExtensionDefinitionsHelper($this->compiler);
+
+		$globalPluginDefinitions = [];
+
+		foreach ($config->plugins as $pluginName => $pluginConfig) {
+			$pluginPrefix = $this->prefix('plugin.' . $pluginName);
+			$pluginDefinition = $definitionHelper->getDefinitionFromConfig($pluginConfig, $pluginPrefix);
+			if ($pluginDefinition instanceof Definition) {
+				$pluginDefinition->setAutowired(false);
+			}
+			$globalPluginDefinitions[] = $pluginDefinition;
+		}
+
 		$filesystemsDefinitions = [];
 
 		// Register filesystems
-		foreach ($config['filesystem'] as $name => $args) {
-			$filesystemName = $this->prefix('filesystem.' . $name);
-			$adapterName = $filesystemName . '.adapter';
+		foreach ($config->filesystem as $filesystemName => $filesystemConfig) {
+			$filesystemPrefix = $this->prefix('filesystem.' . $filesystemName);
 
-			$args = $this->validateConfig($this->filesystemDefaults, $args, $filesystemName);
-
-			if ($args['adapter'] === null) {
-				throw new InvalidStateException(sprintf('%s must be defined', $adapterName));
+			$adapterPrefix = $filesystemPrefix . '.adapter';
+			$adapterDefinition = $definitionHelper->getDefinitionFromConfig($filesystemConfig->adapter, $adapterPrefix);
+			if ($adapterDefinition instanceof Definition) {
+				$adapterDefinition->setAutowired(false);
 			}
 
-			// Register adapter same way as service (setup, arguments, type etc.)
-			if (!is_string($args['adapter']) || !Strings::startsWith($args['adapter'], '@')) {
-				$processor = $builder->addDefinition($adapterName)
-					->setAutowired(false);
-
-				Compiler::loadDefinition($processor, $args['adapter']);
-				$args['adapter'] = '@' . $adapterName;
-			}
-
-			$filesystemsDefinitions[$name] = $filesystem = $builder->addDefinition($filesystemName)
+			$filesystemsDefinitions[$filesystemName] = $filesystem = $builder->addDefinition($filesystemPrefix)
 				->setType(Filesystem::class)
 				->setArguments(
 					[
-						$args['adapter'],
-						$args['config'] ?? null,
+						$adapterDefinition,
+						$filesystemConfig->config,
 					]
 				);
 
-			if ($args['autowired'] !== true) {
+			if (!$filesystemConfig->autowired) {
 				$filesystem->setAutowired(false);
 			}
 
-			foreach ($config['plugins'] as $plugin) {
-				$filesystem->addSetup('addPlugin', [$plugin]);
+			foreach ($globalPluginDefinitions as $pluginDefinition) {
+				$filesystem->addSetup('addPlugin', [$pluginDefinition]);
 			}
 
-			foreach ($args['plugins'] as $plugin) {
-				$filesystem->addSetup('addPlugin', [$plugin]);
+			foreach ($filesystemConfig->plugins as $pluginName => $pluginConfig) {
+				$pluginPrefix = $filesystemPrefix . '.plugin.' . $pluginName;
+				$pluginDefinition = $definitionHelper->getDefinitionFromConfig($pluginConfig, $pluginPrefix);
+				if ($pluginDefinition instanceof Definition) {
+					$pluginDefinition->setAutowired(false);
+				}
+				$filesystem->addSetup('addPlugin', [$pluginDefinition]);
 			}
 		}
 
 		// Register mount manager
-		$mountManager = $builder->addDefinition($this->prefix('mountManager'))
+		$mountManagerPrefix = $this->prefix('mountManager');
+		$mountManager = $builder->addDefinition($mountManagerPrefix)
 			->setType(MountManager::class)
 			->setArguments([$filesystemsDefinitions]);
 
-		foreach ($config['plugins'] as $plugin) {
-			$mountManager->addSetup('addPlugin', [$plugin]);
+		foreach ($globalPluginDefinitions as $pluginDefinition) {
+			$mountManager->addSetup('addPlugin', [$pluginDefinition]);
 		}
 
-		foreach ($config['mountManager']['plugins'] as $plugin) {
-			$mountManager->addSetup('addPlugin', [$plugin]);
+		foreach ($config->mountManager->plugins as $pluginName => $pluginConfig) {
+			$pluginPrefix = $mountManagerPrefix . '.plugin.' . $pluginName;
+			$pluginDefinition = $definitionHelper->getDefinitionFromConfig($pluginConfig, $pluginPrefix);
+			if ($pluginDefinition instanceof Definition) {
+				$pluginDefinition->setAutowired(false);
+			}
+			$mountManager->addSetup('addPlugin', [$pluginDefinition]);
 		}
 	}
 
