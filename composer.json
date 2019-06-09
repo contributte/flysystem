@@ -16,10 +16,9 @@
     }
   ],
   "require": {
-    "php": ">= 7.1",
-    "league/flysystem": "^1.0.45",
-    "nette/di": "~2.4.12",
-    "nette/utils": "~2.5.2"
+    "php": "^7.2",
+    "contributte/di": "^0.4.0",
+    "league/flysystem": "^1.0.45"
   },
   "require-dev": {
     "ninjify/nunjuck": "^0.2.0",
@@ -35,6 +34,11 @@
       "Contributte\\Flysystem\\": "src"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\Contributte\\Flysystem\\": "tests"
+    }
+  },
   "minimum-stability": "dev",
   "prefer-stable": true,
   "config": {
@@ -42,7 +46,7 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-master": "0.2.x-dev"
+      "dev-master": "0.3.x-dev"
     }
   }
 }
