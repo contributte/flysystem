@@ -1,8 +1,6 @@
-# Flysystem
+# Contributte Flysystem
 
-Smart integration of [Flysystem](http://flysystem.thephpleague.com/docs/) into Nette Framework.
-
------
+Integration of [Flysystem](http://flysystem.thephpleague.com/docs/) into [Nette Framework](https://nette.org).
 
 [![Build Status](https://img.shields.io/travis/contributte/flysystem.svg?style=flat-square)](https://travis-ci.org/contributte/flysystem)
 [![Code coverage](https://img.shields.io/coveralls/contributte/flysystem.svg?style=flat-square)](https://coveralls.io/r/contributte/flysystem)
@@ -10,17 +8,17 @@ Smart integration of [Flysystem](http://flysystem.thephpleague.com/docs/) into N
 [![Downloads this Month](https://img.shields.io/packagist/dm/contributte/flysystem.svg?style=flat-square)](https://packagist.org/packages/contributte/flysystem)
 [![Downloads total](https://img.shields.io/packagist/dt/contributte/flysystem.svg?style=flat-square)](https://packagist.org/packages/contributte/flysystem)
 [![Latest stable](https://img.shields.io/packagist/v/contributte/flysystem.svg?style=flat-square)](https://packagist.org/packages/contributte/flysystem)
-[![PHPStan](https://img.shields.io/badge/PHPStan-enabled-brightgreen.svg?style=flat)](https://github.com/phpstan/phpstan)
+[![PHPStan](https://img.shields.io/badge/PHPStan-enabled-brightgreen.svg?style=flat-square)](https://github.com/phpstan/phpstan)
 
 ## Discussion / Help
 
 [![Join the chat](https://img.shields.io/gitter/room/contributte/contributte.svg?style=flat-square)](http://bit.ly/ctteg)
 
-## Install
+## Documentation
 
-```
-composer require contributte/flysystem
-```
+- [Setup](.docs/README.md#setup)
+- [Configuration](.docs/README.md#configuration)
+- [Implementation](.docs/README.md#implementation)
 
 ## Versions
 
@@ -28,12 +26,6 @@ composer require contributte/flysystem
 |-------------|---------|----------|----------|
 | dev         | `^0.2`  | `master` | `>= 7.1` |
 | stable      | `^0.1`  | `master` | `>= 7.1` |
-
-## Overview
-
-- [Usage - how to register](https://github.com/contributte/flysystem/blob/master/.docs/README.md#usage)
-- [Configuration - how to configure](https://github.com/contributte/flysystem/blob/master/.docs/README.md#configuration)
-- [Implementation - how to work with flysystem](https://github.com/contributte/flysystem/blob/master/.docs/README.md#implementation)
 
 ## Maintainers
 
@@ -50,7 +42,5 @@ composer require contributte/flysystem
     </tr>
   </tbody>
 </table>
-
------
 
 Thank you for testing, reporting and contributing.

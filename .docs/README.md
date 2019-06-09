@@ -1,12 +1,16 @@
-# Flysystem
+# Contributte Flysystem
 
 ## Content
 
-- [Usage - how to register](#usage)
-- [Configuration - how to configure](#configuration)
-- [Implementation - how to work with flysystem](#implementation)
+- [Setup](#setup)
+- [Configuration](#configuration)
+- [Implementation](#implementation)
 
-## Usage
+## Setup
+
+```bash
+composer require contributte/flysystem
+```
 
 ```yaml
 extensions:
