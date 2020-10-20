@@ -11,6 +11,10 @@
   "homepage": "https://github.com/contributte/flysystem",
   "authors": [
     {
+      "name": "Milan Felix Šulc",
+      "homepage": "https://f3l1x.io"
+    },
+    {
       "name": "Marek Bartoš",
       "homepage": "https://marek-bartos.cz"
     }
