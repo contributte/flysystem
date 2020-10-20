@@ -54,6 +54,7 @@ class FlysystemExtension extends CompilerExtension
 			if ($pluginDefinition instanceof Definition) {
 				$pluginDefinition->setAutowired(false);
 			}
+
 			$globalPluginDefinitions[] = $pluginDefinition;
 		}
 
@@ -92,6 +93,7 @@ class FlysystemExtension extends CompilerExtension
 				if ($pluginDefinition instanceof Definition) {
 					$pluginDefinition->setAutowired(false);
 				}
+
 				$filesystem->addSetup('addPlugin', [$pluginDefinition]);
 			}
 		}
@@ -112,6 +114,7 @@ class FlysystemExtension extends CompilerExtension
 			if ($pluginDefinition instanceof Definition) {
 				$pluginDefinition->setAutowired(false);
 			}
+
 			$mountManager->addSetup('addPlugin', [$pluginDefinition]);
 		}
 	}
