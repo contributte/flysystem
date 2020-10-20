@@ -1,0 +1,3 @@
+parameters:
+	ignoreErrors:
+		- '#^Fetching class constant class of deprecated class League\\Flysystem\\MountManager\:\RThis functionality will be removed in 2\.0$#'
