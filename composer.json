@@ -13,14 +13,10 @@
     {
       "name": "Milan Felix Šulc",
       "homepage": "https://f3l1x.io"
-    },
-    {
-      "name": "Marek Bartoš",
-      "homepage": "https://marek-bartos.cz"
     }
   ],
   "require": {
-    "php": "^7.2",
+    "php": ">+7.2",
     "contributte/di": "^0.4.0",
     "league/flysystem": "^1.0.45"
   },
