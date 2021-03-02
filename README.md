@@ -1,47 +1,54 @@
-# Contributte Flysystem
+![](https://heatbadger.now.sh/github/readme/contributte/flysystem/)
 
-Integration of [Flysystem](http://flysystem.thephpleague.com/docs/) into [Nette Framework](https://nette.org).
+<p align=center>
+  <a href="https://github.com/contributte/flysystem/actions"><img src="https://badgen.net/github/checks/contributte/flysystem/master?cache=300"></a>
+  <a href="https://coveralls.io/r/contributte/flysystem"><img src="https://badgen.net/coveralls/c/github/contributte/flysystem?cache=300"></a>
+  <a href="https://packagist.org/packages/contributte/flysystem"><img src="https://badgen.net/packagist/dm/contributte/flysystem"></a>
+  <a href="https://packagist.org/packages/contributte/flysystem"><img src="https://badgen.net/packagist/v/contributte/flysystem"></a>
+</p>
+<p align=center>
+  <a href="https://packagist.org/packages/contributte/flysystem"><img src="https://badgen.net/packagist/php/contributte/flysystem"></a>
+  <a href="https://github.com/contributte/flysystem"><img src="https://badgen.net/github/license/contributte/flysystem"></a>
+  <a href="https://bit.ly/ctteg"><img src="https://badgen.net/badge/support/gitter/cyan"></a>
+  <a href="https://bit.ly/cttfo"><img src="https://badgen.net/badge/support/forum/yellow"></a>
+  <a href="https://contributte.org/partners.html"><img src="https://badgen.net/badge/sponsor/donations/F96854"></a>
+</p>
 
-[![Build Status](https://img.shields.io/travis/contributte/flysystem.svg?style=flat-square)](https://travis-ci.org/contributte/flysystem)
-[![Code coverage](https://img.shields.io/coveralls/contributte/flysystem.svg?style=flat-square)](https://coveralls.io/r/contributte/flysystem)
-[![Licence](https://img.shields.io/packagist/l/contributte/flysystem.svg?style=flat-square)](https://packagist.org/packages/contributte/flysystem)
-[![Downloads this Month](https://img.shields.io/packagist/dm/contributte/flysystem.svg?style=flat-square)](https://packagist.org/packages/contributte/flysystem)
-[![Downloads total](https://img.shields.io/packagist/dt/contributte/flysystem.svg?style=flat-square)](https://packagist.org/packages/contributte/flysystem)
-[![Latest stable](https://img.shields.io/packagist/v/contributte/flysystem.svg?style=flat-square)](https://packagist.org/packages/contributte/flysystem)
-[![PHPStan](https://img.shields.io/badge/PHPStan-enabled-brightgreen.svg?style=flat-square)](https://github.com/phpstan/phpstan)
+<p align=center>
+Website 🚀 <a href="https://contributte.org">contributte.org</a> | Contact 👨🏻‍💻 <a href="https://f3l1x.io">f3l1x.io</a> | Twitter 🐦 <a href="https://twitter.com/contributte">@contributte</a>
+</p>
 
-## Discussion / Help
+## Usage
 
-[![Join the chat](https://img.shields.io/gitter/room/contributte/contributte.svg?style=flat-square)](http://bit.ly/ctteg)
+To install latest version of `contributte/flysystem` use [Composer](https://getcomposer.org/).
+
+```
+$ composer require contributte/flysystem
+```
 
 ## Documentation
 
-- [Setup](.docs/README.md#setup)
-- [Configuration](.docs/README.md#configuration)
-- [Implementation](.docs/README.md#implementation)
+For details on how to use this package, check out our [documentation](.docs).
+
 
 ## Versions
 
-| State       | Version | Branch   | Nette | PHP     |
-|-------------|---------|----------|-------|---------|
-| dev         | `^0.3`  | `master` | 3.0+  | `>=7.2`  |
-| stable      | `^0.2`  | `master` | 3.0+  | `^7.2`  |
-| stable      | `^0.1`  | `master` | 2.4   | `>=7.1` |
 
-## Maintainers
 
-<table>
-  <tbody>
-    <tr>
-      <td align="center">
-        <a href="https://github.com/f3l1x">
-            <img width="150" height="150" src="https://avatars2.githubusercontent.com/u/538058?v=3&s=150">
-        </a>
-        </br>
-        <a href="https://github.com/f3l1x">Milan Felix Šulc</a>
-      </td>
-    </tr>
-  </tbody>
-</table>
+| State       | Version     | Branch   | Nette  | PHP     |
+|-------------|-------------|----------|--------|---------|
+| dev         | `^0.3`      | `master` | `3.0+` | `>=7.2` |
+| stable      | `^0.2`      | `master` | `3.0+` | `^7.2`  |
 
-Thank you for testing, reporting and contributing.
+## Development
+
+See [how to contribute](https://contributte.org/contributing.html) to this package. This package is currently maintained by these authors.
+
+<a href="https://github.com/f3l1x">
+    <img width="80" height="80" src="https://avatars2.githubusercontent.com/u/538058?v=3&s=80">
+</a>
+
+-----
+
+Consider to [support](https://contributte.org/partners.html) **contributte** development team.
+Also thank you for using this package. Thanks.
