@@ -22,18 +22,15 @@ Website ðŸš€ <a href="https://contributte.org">contributte.org</a> | Contact ðŸ‘
 
 To install latest version of `contributte/flysystem` use [Composer](https://getcomposer.org/).
 
-```
-$ composer require contributte/flysystem
+```bash
+composer require contributte/flysystem
 ```
 
 ## Documentation
 
 For details on how to use this package, check out our [documentation](.docs).
 
-
 ## Versions
-
-
 
 | State       | Version     | Branch   | Nette  | PHP     |
 |-------------|-------------|----------|--------|---------|
