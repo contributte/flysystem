@@ -46,18 +46,6 @@ class FlysystemExtension extends CompilerExtension
 		$config = $this->config;
 		$definitionHelper = new ExtensionDefinitionsHelper($this->compiler);
 
-		$globalPluginDefinitions = [];
-
-		foreach ($config->plugins as $pluginName => $pluginConfig) {
-			$pluginPrefix = $this->prefix('plugin.' . $pluginName);
-			$pluginDefinition = $definitionHelper->getDefinitionFromConfig($pluginConfig, $pluginPrefix);
-			if ($pluginDefinition instanceof Definition) {
-				$pluginDefinition->setAutowired(false);
-			}
-
-			$globalPluginDefinitions[] = $pluginDefinition;
-		}
-
 		$filesystemsDefinitions = [];
 
 		// Register filesystems
@@ -82,41 +70,13 @@ class FlysystemExtension extends CompilerExtension
 			if (!$filesystemConfig->autowired) {
 				$filesystem->setAutowired(false);
 			}
-
-			foreach ($globalPluginDefinitions as $pluginDefinition) {
-				$filesystem->addSetup('addPlugin', [$pluginDefinition]);
-			}
-
-			foreach ($filesystemConfig->plugins as $pluginName => $pluginConfig) {
-				$pluginPrefix = $filesystemPrefix . '.plugin.' . $pluginName;
-				$pluginDefinition = $definitionHelper->getDefinitionFromConfig($pluginConfig, $pluginPrefix);
-				if ($pluginDefinition instanceof Definition) {
-					$pluginDefinition->setAutowired(false);
-				}
-
-				$filesystem->addSetup('addPlugin', [$pluginDefinition]);
-			}
 		}
 
 		// Register mount manager
 		$mountManagerPrefix = $this->prefix('mountManager');
-		$mountManager = $builder->addDefinition($mountManagerPrefix)
+		$builder->addDefinition($mountManagerPrefix)
 			->setType(MountManager::class)
 			->setArguments([$filesystemsDefinitions]);
-
-		foreach ($globalPluginDefinitions as $pluginDefinition) {
-			$mountManager->addSetup('addPlugin', [$pluginDefinition]);
-		}
-
-		foreach ($config->mountManager->plugins as $pluginName => $pluginConfig) {
-			$pluginPrefix = $mountManagerPrefix . '.plugin.' . $pluginName;
-			$pluginDefinition = $definitionHelper->getDefinitionFromConfig($pluginConfig, $pluginPrefix);
-			if ($pluginDefinition instanceof Definition) {
-				$pluginDefinition->setAutowired(false);
-			}
-
-			$mountManager->addSetup('addPlugin', [$pluginDefinition]);
-		}
 	}
 
 }

@@ -26,13 +26,6 @@ flysystem:
 			autowired: true
 			config: # $config parameter of League\Flysystem\Filesystem
 				- disable_asserts: true
-			plugins:
-				- Your\Filesystem\Plugin()
-	mountManager:
-		plugins:
-			- Your\MountManager\Plugin()
-	plugins: # plugins for all filesystems and mount manager
-		- Your\EverywhereUsed\Plugin()
 ```
 
 Minimal configuration is one filesystem with adapter, nothing more is required ;)
