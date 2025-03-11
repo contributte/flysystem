@@ -21,14 +21,10 @@
     "league/flysystem": "^2.0 || ^3.0"
   },
   "require-dev": {
+    "contributte/qa": "^0.3.2",
+    "contributte/phpstan": "^0.2",
     "contributte/tester": "^0.3.0",
     "league/flysystem-memory": "^2.0 || ^3.0",
-    "ninjify/qa": "^0.13",
-    "phpstan/extension-installer": "^1.0",
-    "phpstan/phpstan": "^1.0",
-    "phpstan/phpstan-deprecation-rules": "^1.0",
-    "phpstan/phpstan-nette": "^1.0",
-    "phpstan/phpstan-strict-rules": "^1.0",
     "tracy/tracy": "^2.8"
   },
   "autoload": {
