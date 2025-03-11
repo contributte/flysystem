@@ -1,10 +1,14 @@
 <?php declare(strict_types = 1);
 
+namespace Tests\Contributte\Flysystem\Cases\DI;
+
 /**
  * Test: DI\FlysystemExtension
  */
 
 use Contributte\Flysystem\DI\FlysystemExtension;
+use Contributte\Tester\Environment;
+use Contributte\Tester\Toolkit;
 use League\Flysystem\Filesystem;
 use League\Flysystem\InMemory\InMemoryFilesystemAdapter;
 use League\Flysystem\Local\LocalFilesystemAdapter;
@@ -12,15 +16,16 @@ use League\Flysystem\MountManager;
 use Nette\DI\Compiler;
 use Nette\DI\Container;
 use Nette\DI\ContainerLoader;
+use ReflectionProperty;
 use Tester\Assert;
 use Tester\FileMock;
 
-require_once __DIR__ . '/../bootstrap.php';
+require_once __DIR__ . '/../../bootstrap.php';
 
-test(function (): void {
-	$loader = new ContainerLoader(TEMP_DIR, true);
+Toolkit::test(function (): void {
+	$loader = new ContainerLoader(Environment::getTmpDir(), true);
 	$class = $loader->load(function (Compiler $compiler): void {
-		$compiler->addConfig(['parameters' => ['appDir' => CACHE_DIR]]);
+		$compiler->addConfig(['parameters' => ['appDir' => Environment::getTmpDir() . '/cache']]);
 		$compiler->addExtension('flysystem', new FlysystemExtension());
 		$compiler->loadConfig(FileMock::create('
 		services:
