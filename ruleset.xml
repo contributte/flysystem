@@ -8,7 +8,7 @@
 		<properties>
 			<property name="rootNamespaces" type="array">
 				<element key="src" value="Contributte\Flysystem"/>
-				<element key="tests" value="Tests\Contributte\Flysystem"/>
+				<element key="tests" value="Tests"/>
 			</property>
 		</properties>
 	</rule>
