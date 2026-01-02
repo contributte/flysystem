@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Tests\Contributte\Flysystem\Cases\DI;
+namespace Tests\Cases\DI;
 
 /**
  * Test: DI\FlysystemExtension
