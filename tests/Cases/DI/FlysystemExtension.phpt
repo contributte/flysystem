@@ -56,27 +56,22 @@ Toolkit::test(function (): void {
 	/** @var Filesystem $filesystem */
 	$filesystem = $container->getByType(Filesystem::class);
 	$adapterReflectionProperty = new ReflectionProperty($filesystem, 'adapter');
-	$adapterReflectionProperty->setAccessible(true);
 	Assert::type(LocalFilesystemAdapter::class, $adapterReflectionProperty->getValue($filesystem));
 
 	/** @var Filesystem $filesystem */
 	$filesystem = $container->getService('flysystem.filesystem.foo');
 	$adapterReflectionProperty = new ReflectionProperty($filesystem, 'adapter');
-	$adapterReflectionProperty->setAccessible(true);
 	Assert::type(LocalFilesystemAdapter::class, $adapterReflectionProperty->getValue($filesystem));
 
 	/** @var Filesystem $filesystem */
 	$filesystem = $container->getService('flysystem.filesystem.bar');
 	$adapterReflectionProperty = new ReflectionProperty($filesystem, 'adapter');
-	$adapterReflectionProperty->setAccessible(true);
 	Assert::type(InMemoryFilesystemAdapter::class, $adapterReflectionProperty->getValue($filesystem));
 
 	/** @var MountManager $mountManager */
 	$mountManager = $container->getByType(MountManager::class);
 	$filesystemReflectionProperty = new ReflectionProperty($mountManager, 'filesystems');
-	$filesystemReflectionProperty->setAccessible(true);
 	$filesystem = $filesystemReflectionProperty->getValue($mountManager)['default'];
 	$adapterReflectionProperty = new ReflectionProperty($filesystem, 'adapter');
-	$adapterReflectionProperty->setAccessible(true);
 	Assert::type(LocalFilesystemAdapter::class, $adapterReflectionProperty->getValue($filesystem));
 });
