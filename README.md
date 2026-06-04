@@ -18,6 +18,21 @@
 Website 🚀 <a href="https://contributte.org">contributte.org</a> | Contact 👨🏻‍💻 <a href="https://f3l1x.io">f3l1x.io</a> | Twitter 🐦 <a href="https://twitter.com/contributte">@contributte</a>
 </p>
 
+Nette DI integration for [Flysystem](https://flysystem.thephpleague.com/), a filesystem abstraction library.
+
+## Versions
+
+| State       | Version     | Branch   | Nette  | PHP     |
+|-------------|-------------|----------|--------|---------|
+| dev         | `^0.4`      | `master` | `3.0+` | `>=8.2` |
+| stable      | `^0.3`      | `master` | `3.0+` | `>=7.2` |
+
+## Content
+
+- [Usage](#usage)
+- [Configuration](#configuration)
+- [Implementation](#implementation)
+
 ## Usage
 
 To install latest version of `contributte/flysystem` use [Composer](https://getcomposer.org/).
@@ -26,16 +41,61 @@ To install latest version of `contributte/flysystem` use [Composer](https://getc
 composer require contributte/flysystem
 ```
 
-## Documentation
+Register the extension in your NEON config:
 
-For details on how to use this package, check out our [documentation](.docs).
+```neon
+extensions:
+	flysystem: Contributte\Flysystem\DI\FlysystemExtension
+```
 
-## Versions
+## Configuration
 
-| State       | Version     | Branch   | Nette  | PHP     |
-|-------------|-------------|----------|--------|---------|
-| dev         | `^0.4`      | `master` | `3.0+` | `>=8.2` |
-| stable      | `^0.3`      | `master` | `3.0+` | `>=7.2` |
+```neon
+flysystem:
+	filesystem:
+		default:
+			adapter: League\Flysystem\Adapter\Local(%appDir%/../storage)
+			autowired: true
+			config: # $config parameter of League\Flysystem\Filesystem
+				- disable_asserts: true
+```
+
+Minimal configuration is one filesystem with adapter, nothing more is required ;)
+
+## Implementation
+
+```php
+use League\Flysystem\Filesystem;
+use League\Flysystem\MountManager;
+use Nette\Application\UI\Presenter;
+
+class FilePresenter extends Presenter
+{
+
+	/** @var Filesystem */
+	private $filesystem;
+
+	public function injectFilesystem(Filesystem $filesystem): void
+	{
+		$this->filesystem = $filesystem;
+	}
+
+	public function injectMountManager(MountManager $mountManager): void
+	{
+		// you can also get MountManager which has available all filesystems
+		// it is not recommended and should be used only for transfer of files between filesystems
+	}
+
+	public function handleFileSave(): void
+	{
+		// get file and save its contents to $path
+		$this->filesystem->write($path, $file->getContents());
+	}
+
+}
+```
+
+If you miss something here so just look at [League/Flysystem documentation](https://flysystem.thephpleague.com/docs/). This is only DI integration.
 
 ## Development
 
