@@ -18,17 +18,7 @@
 Website 🚀 <a href="https://contributte.org">contributte.org</a> | Contact 👨🏻‍💻 <a href="https://f3l1x.io">f3l1x.io</a> | Twitter 🐦 <a href="https://twitter.com/contributte">@contributte</a>
 </p>
 
-## Usage
-
-To install latest version of `contributte/flysystem` use [Composer](https://getcomposer.org/).
-
-```bash
-composer require contributte/flysystem
-```
-
-## Documentation
-
-For details on how to use this package, check out our [documentation](.docs).
+Nette DI integration for [Flysystem](https://flysystem.thephpleague.com/), a filesystem abstraction library.
 
 ## Versions
 
@@ -36,6 +26,72 @@ For details on how to use this package, check out our [documentation](.docs).
 |-------------|-------------|----------|--------|---------|
 | dev         | `^0.4`      | `master` | `3.0+` | `>=8.2` |
 | stable      | `^0.3`      | `master` | `3.0+` | `>=7.2` |
+
+## Installation
+
+To install latest version of `contributte/flysystem` use [Composer](https://getcomposer.org/).
+
+```bash
+composer require contributte/flysystem
+```
+
+Register the extension in your NEON config:
+
+```neon
+extensions:
+	flysystem: Contributte\Flysystem\DI\FlysystemExtension
+```
+
+## Usage
+
+## Configuration
+
+```neon
+flysystem:
+	filesystem:
+		default:
+			adapter: League\Flysystem\Adapter\Local(%appDir%/../storage)
+			autowired: true
+			config: # $config parameter of League\Flysystem\Filesystem
+				- disable_asserts: true
+```
+
+Minimal configuration is one filesystem with adapter, nothing more is required ;)
+
+## Implementation
+
+```php
+use League\Flysystem\Filesystem;
+use League\Flysystem\MountManager;
+use Nette\Application\UI\Presenter;
+
+class FilePresenter extends Presenter
+{
+
+	/** @var Filesystem */
+	private $filesystem;
+
+	public function injectFilesystem(Filesystem $filesystem): void
+	{
+		$this->filesystem = $filesystem;
+	}
+
+	public function injectMountManager(MountManager $mountManager): void
+	{
+		// you can also get MountManager which has available all filesystems
+		// it is not recommended and should be used only for transfer of files between filesystems
+	}
+
+	public function handleFileSave(): void
+	{
+		// get file and save its contents to $path
+		$this->filesystem->write($path, $file->getContents());
+	}
+
+}
+```
+
+For filesystem API details, see the [League/Flysystem documentation](https://flysystem.thephpleague.com/docs/). This package only provides the Nette DI integration.
 
 ## Development
 
