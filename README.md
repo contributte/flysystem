@@ -27,13 +27,7 @@ Nette DI integration for [Flysystem](https://flysystem.thephpleague.com/), a fil
 | dev         | `^0.4`      | `master` | `3.0+` | `>=8.2` |
 | stable      | `^0.3`      | `master` | `3.0+` | `>=7.2` |
 
-## Content
-
-- [Usage](#usage)
-- [Configuration](#configuration)
-- [Implementation](#implementation)
-
-## Usage
+## Installation
 
 To install latest version of `contributte/flysystem` use [Composer](https://getcomposer.org/).
 
@@ -47,6 +41,8 @@ Register the extension in your NEON config:
 extensions:
 	flysystem: Contributte\Flysystem\DI\FlysystemExtension
 ```
+
+## Usage
 
 ## Configuration
 
@@ -95,7 +91,7 @@ class FilePresenter extends Presenter
 }
 ```
 
-If you miss something here so just look at [League/Flysystem documentation](https://flysystem.thephpleague.com/docs/). This is only DI integration.
+For filesystem API details, see the [League/Flysystem documentation](https://flysystem.thephpleague.com/docs/). This package only provides the Nette DI integration.
 
 ## Development
 
